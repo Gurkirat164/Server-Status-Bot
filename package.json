@@ -1,0 +1,16 @@
+{
+  "name": "horizion-bot",
+  "version": "1.0.0",
+  "description": "Modular Discord bot for Horizion",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.16.3",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

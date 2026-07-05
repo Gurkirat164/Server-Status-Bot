@@ -1,0 +1,5 @@
+{
+  "name": "status",
+  "description": "Live auto-updating Minecraft server status embed for Horizion",
+  "enabled": true
+}

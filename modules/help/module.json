@@ -1,0 +1,5 @@
+{
+  "name": "help",
+  "description": "Lists all available modules and their commands",
+  "enabled": true
+}

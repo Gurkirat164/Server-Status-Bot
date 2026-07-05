@@ -1,0 +1,17 @@
+{
+  "mainServer": {
+    "displayAddress": "",
+    "queryIp": "",
+    "queryPort": 25565,
+    "version": ""
+  },
+  "subServers": [],
+  "peakPlayers": 0,
+  "thumbnailFile": null,
+  "bannerFile": null,
+  "instances": [],
+  "admins": {
+    "roles": [],
+    "users": []
+  }
+}
