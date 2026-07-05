@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require('discord.js');
 const setupCmd = require('./commands/setup');
 const removeCmd = require('./commands/remove');
+const updateCmd = require('./commands/update');
 const setCmd = require('./commands/set');
 const subserverCmd = require('./commands/subserver');
 const adminCmd = require('./commands/admin');
@@ -12,6 +13,7 @@ let builder = new SlashCommandBuilder()
 
 builder = setupCmd.register(builder);
 builder = removeCmd.register(builder);
+builder = updateCmd.register(builder);
 builder = setCmd.register(builder);
 builder = subserverCmd.register(builder);
 builder = adminCmd.register(builder);
@@ -22,6 +24,7 @@ async function execute(interaction) {
 
   if (!group && sub === 'setup') return setupCmd.execute(interaction);
   if (!group && sub === 'remove') return removeCmd.execute(interaction);
+  if (!group && sub === 'update') return updateCmd.execute(interaction);
   if (group === 'set') return setCmd.execute(interaction);
   if (group === 'subserver') return subserverCmd.execute(interaction);
   if (group === 'admin') return adminCmd.execute(interaction);

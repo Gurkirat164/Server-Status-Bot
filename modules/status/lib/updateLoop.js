@@ -62,14 +62,38 @@ async function refreshAndUpdate(client) {
   return { embed, files, mainStatus, subStatuses };
 }
 
+let timer = null;
+
+/**
+ * Schedules the next automatic update. Uses a self-rescheduling setTimeout
+ * (rather than setInterval) so a manual /status update can cleanly cancel
+ * and restart the countdown without ever double-firing.
+ */
+function scheduleNext(client) {
+  if (timer) clearTimeout(timer);
+
+  timer = setTimeout(() => {
+    refreshAndUpdate(client)
+      .catch(err => console.error('[status] Update loop failed:', err))
+      .finally(() => scheduleNext(client));
+  }, UPDATE_INTERVAL_MS);
+}
+
 function startUpdateLoop(client) {
   refreshAndUpdate(client).catch(err => console.error('[status] Initial update failed:', err));
-
-  setInterval(() => {
-    refreshAndUpdate(client).catch(err => console.error('[status] Update loop failed:', err));
-  }, UPDATE_INTERVAL_MS);
+  scheduleNext(client);
 
   console.log('[status] Auto-update loop started (every 5 minutes).');
 }
 
-module.exports = { startUpdateLoop, refreshAndUpdate };
+/**
+ * Forces an immediate refresh (used by /status update) and resets the
+ * 5-minute timer so the next automatic update is 5 minutes from now.
+ */
+async function forceUpdate(client) {
+  const result = await refreshAndUpdate(client);
+  scheduleNext(client);
+  return result;
+}
+
+module.exports = { startUpdateLoop, refreshAndUpdate, forceUpdate };
